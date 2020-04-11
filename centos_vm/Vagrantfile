@@ -1,0 +1,19 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "centos/7"
+
+  config.vm.network "private_network"
+  config.vm.provider "hyperv" do |hv|
+    hv.cpus = 4
+    hv.memory = 8192
+  end
+
+  config.vm.provision "shell", inline: <<-SHELL
+     # yum update -y
+     # yum install -y httpd
+  SHELL
+end

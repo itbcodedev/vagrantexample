@@ -1,0 +1,28 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "centos/7"
+
+  config.vm.network "private_network"
+
+  config.vm.define "dev1" do |dev|
+    dev.vm.provider "hyperv" do |hv|
+      hv.cpus = 2
+      hv.memory = 1024
+    end
+  end
+
+  config.vm.define "dev2" do |dev|
+    dev.vm.provider "hyperv" do |hv|
+      hv.cpus = 1
+      hv.memory = 1024 
+    end
+  end
+
+  config.vm.provision "shell", inline: <<-SHELL
+     yum update -y
+  SHELL
+end
